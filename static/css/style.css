@@ -1,0 +1,304 @@
+/* Footer component stylesheet
+ *
+ * Accessibility & regulatory notes:
+ * - Landmark roles (role="contentinfo", role="navigation") and labels are provided.
+ * - Contact details use <address> for semantics.
+ * - Social links include visually-hidden labels for screen reader users.
+ * - External links open with target="_blank" and rel="noopener noreferrer".
+ * - Include an "Accessibility" page link for compliance and user support.
+ * - Ensure the site provides an accessible mechanism (email/phone) for users who cannot use the web UI.
+ *
+ * Integration notes:
+ * - Drop this file in next to the HTML or paste into your main stylesheet.
+ * - Replace placeholder symbols ([pin], [phone], [FB], etc.) with your SVG icons, or an icon font.
+ * - Update link hrefs for privacy/accessibility/legal pages to match your site.
+ */
+
+/* ------------------------------
+   Design tokens (custom properties)
+   ------------------------------ */
+:root{
+  --footer-bg: #071426;      /* deep navy background - high contrast with text */
+  --text-strong: #e9f6ef;    /* brand / prominent text color */
+  --text-muted: rgba(233,246,239,0.85); /* primary body text in footer */
+  --muted-small: rgba(233,246,239,0.6); /* secondary / small text */
+  --divider: rgba(255,255,255,0.06);    /* hairline color */
+  --accent: #bfeed2;         /* icon / accent color */
+  --max-width: 1200px;       /* content width constrain */
+  --gap-lg: 32px;
+  --gap-sm: 16px;
+  --radius: 6px;
+  --focus-outline: 3px solid rgba(191,238,210,0.24);
+  --breakpoint-md: 880px;
+  --breakpoint-sm: 520px;
+}
+
+/* ------------------------------
+   Base footer layout
+   ------------------------------ */
+.site-footer{
+  background: var(--footer-bg);
+  color: var(--text-muted);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: 56px 20px; /* generous vertical padding */
+  box-sizing: border-box;
+}
+
+/* Inner container to constrain width and center content */
+.footer-inner{
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Decorative thin separator/hairline — purely visual */
+.footer-separator{
+  height: 1px;
+  background: var(--divider);
+  margin: 6px 0 26px;
+}
+
+/* ------------------------------
+   Top grid: brand + contact
+   - 2 column layout on wide screens
+   - Stacks on smaller screens
+   ------------------------------ */
+.footer-grid{
+  display: grid;
+  grid-template-columns: 1fr 520px; /* left flexible brand, right fixed-ish contact block */
+  gap: var(--gap-lg);
+  align-items: start;
+}
+
+/* Brand block styles */
+.footer-brand{
+  padding-left: 12px;
+}
+
+/* Large, two-line brand title (uppercase) */
+.brand-title{
+  margin: 8px 0 0;
+  color: var(--text-strong);
+  font-size: clamp(28px, 4.2vw, 44px); /* scales with viewport */
+  font-weight: 800;
+  line-height: 0.95; /* tight stacking to match the reference layout */
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+/* Contact block (right column) */
+.footer-contact{
+  padding-right: 12px;
+}
+
+/* Semantically-correct address block */
+.contact-address{
+  font-style: normal; /* keep normal font style even though address typically italic */
+  margin: 0 0 12px;
+}
+
+/* Each line has an inline placeholder icon + text */
+.contact-line{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  margin: 8px 0;
+  color: var(--muted-small);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Phone number link styling */
+.contact-link{
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Visible focus style for keyboard users */
+.contact-link:focus,
+.legal-link:focus,
+.social-link:focus{
+  outline: none;
+  box-shadow: var(--focus-outline);
+  border-radius: 4px;
+}
+
+/* ------------------------------
+   Social area
+   ------------------------------ */
+.social-block{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.social-label{
+  color: var(--muted-small);
+  font-size: 13px;
+  margin-right: 6px;
+}
+
+/* Social icons container */
+.social-links{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+}
+
+/* Social link (square button) - currently contains placeholder text/icon */
+.social-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:36px;
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-strong);
+  text-decoration:none;
+  font-weight:700;
+  font-size: 13px;
+  transition: transform .14s ease, background .12s ease;
+}
+
+/* Hover & focus affordances */
+.social-link:hover{
+  transform: translateY(-3px);
+  background: rgba(191,238,210,0.08);
+  color: var(--accent);
+}
+
+/* ------------------------------
+   Bottom legal row
+   - Left: legal links list
+   - Right: copyright
+   ------------------------------ */
+.footer-legal{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap-lg);
+  margin-top: 34px;
+  padding-top: 18px;
+  border-top: 1px solid var(--divider); /* subtle line above legal row */
+}
+
+/* Legal links list */
+.legal-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display:flex;
+  gap: 22px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+/* Individual legal links */
+.legal-link{
+  color: var(--muted-small);
+  text-decoration:none;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+/* Hover state for legal links */
+.legal-link:hover{
+  color: var(--text-strong);
+  text-decoration: underline;
+}
+
+/* Copyright / right side */
+.copyright{
+  color: var(--muted-small);
+  font-size: 13px;
+  text-align: right;
+}
+
+/* ------------------------------
+   Placeholder icon styles
+   - Replace with SVG icons in production. Placeholders are visible to sighted users
+     but are marked aria-hidden so assistive tech will read the text instead.
+   ------------------------------ */
+.icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:20px;
+  min-height:20px;
+  color: var(--accent);
+  font-weight:700;
+  font-size: 12px;
+}
+
+/* ------------------------------
+   Utility: screen-reader only text
+   - Use for non-visible labels for assistive tech
+   ------------------------------ */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ------------------------------
+   Responsive adjustments
+   ------------------------------ */
+@media (max-width: var(--breakpoint-md)) {
+  /* Stack the top grid into a single column, contact appears beneath brand */
+  .footer-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .footer-brand{
+    padding-left: 4px;
+    margin-bottom: 16px;
+  }
+
+  .footer-contact{
+    padding-right: 4px;
+  }
+
+  .social-links{
+    gap: 8px;
+  }
+
+  .brand-title{
+    font-size: clamp(24px, 6vw, 34px);
+  }
+}
+
+@media (max-width: var(--breakpoint-sm)) {
+  /* On small screens, center content and make legal links wrap */
+  .footer-inner{
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .footer-legal{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .legal-list{
+    gap: 12px;
+  }
+
+  .copyright{
+    text-align:left;
+  }
+}
+
+/* ------------------------------
+   Contrast & testing notes
+   - Ensure any icons and text meet WCAG contrast requirements.
+   - If you replace placeholders with colored icons, verify color contrast against --footer-bg.
+   ------------------------------ */
